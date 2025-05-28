@@ -1,0 +1,46 @@
+{% extends 'default.html' %}
+
+{% block conteudo %}
+<link rel="stylesheet" href="../static/styles/home.css">
+
+<div class="container mt-5 pt-5">
+    <h1 class="display-4"></h1>
+    <form method="POST" enctype="multipart/form-data" class="mb-3" action="{{ url_for('processCript') }}">
+        <!-- Campo de upload de imagens -->
+        <div class="mb-3">
+            <label for="imageUpload" class="form-label">Upload de Imagem</label>
+            <div id="dropzone" class="border border-primary rounded p-3 text-center" style="cursor:pointer;">
+                Arraste suas imagens aqui ou clique para fazer upload
+                <input required type="file" class="form-control" id="imageUpload" name="imagem" accept=".png"
+                    style="display:none;">
+            </div>
+        </div>
+
+        <!-- Pré-visualização das imagens -->
+        <div id="preview" class="d-flex flex-wrap gap-5 justify-content-center align-items-center mb-3"></div>
+
+        <div class="mb-3">
+            <label for="secretMessageInput" class="form-label">Digite a mensagem que quer inserir</label>
+            <input type="text" id="secretMessageInput" class="form-control" required name="mensagem"
+                placeholder="Digite sua mensagem aqui" maxlength="1000">
+            <div class="form-text">Utilize com ética a informação que quer esconder. Por sua conta e risco.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit">Aplicar filtros</button>
+    </form>
+
+    {% if filename %}
+    <div class="alert alert-success" role="alert">
+        Imagem processada com sucesso! <a href="{{ url_for('download_file', filename=filename) }}"
+            class="alert-link">Clique
+            aqui para baixar</a>.
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        Ocorreu um erro: {{ error }}
+    </div>
+    {% endif %}
+
+    {% endblock %}

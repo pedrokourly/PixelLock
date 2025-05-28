@@ -10,37 +10,51 @@
     integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
 
-<body class="light-theme">
+<body>
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src="../static/images/logo.png" alt="logo" class="logo"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/sobre">Upload</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/sobre">Revelar</a>
-            </li>
-          </ul>
-          <span class="navbar-text">
-            Seu segredo, nossa missão.
-          </span>
-          <!-- From Uiverse.io by Madflows -->
-          <div class="theme-switch">
-            <div class="toggle-switch">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Pixel Lock</h5>
+            <div class="theme-switch light-theme d-block">
+              <div class="toggle-switch">
+                <label class="switch-label">
+                  <input type="checkbox" class="checkbox theme-checkbox" id="theme-checkbox-offcanvas">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body align-items-center"> 
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('upload') }}">Upload</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('reveal') }}">Revelar</a>
+              </li>
+            </ul>
+            <span class="navbar-text d-block text-center">
+              Seu segredo, nossa missão.
+            </span>
+            <!-- From Uiverse.io by Madflows -->
+            <div class="theme-switch light-theme d-block d-none d-lg-block">
+              <div class="toggle-switch">
               <label class="switch-label">
-                <input type="checkbox" class="checkbox theme-checkbox" id="theme-checkbox">
+                <input type="checkbox" class="checkbox theme-checkbox" id="theme-checkbox-navbar">
                 <span class="slider"></span>
               </label>
+              </div>
             </div>
           </div>
         </div>
@@ -54,8 +68,8 @@
     {% endblock %}
   </main>
 
-  <footer class="text-center py-3">
-    <p class="m-0">&copy; 2025 Pixel Lock. Todos os direitos reservados.</p>
+  <footer class="text-center py-3 fixed-bottom bg-body-tertiary">
+    <p class="m-0">&copy; 2025 Pixel Lock. Todos os direitos reservados. Desenvolvido por <a href="https://www.github.com/pedrokourly" target="_blank" rel="noopener">Pedro Kourly</a></p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
