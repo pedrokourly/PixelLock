@@ -64,7 +64,7 @@ class Esteganograma:
         if end_index != -1:
             message_bits = binary_text[:end_index]
             if len(message_bits) % 8 != 0:
-                return "Erro: mensagem truncada ou delimitador mal posicionado."
+                return "Erro: mensagem truncada ou delimitador mal posicionado. (Mensagem não encontrada)"
             return Esteganograma.bin_to_str(message_bits)
         else:
-            return "Delimitador de fim não encontrado."
+            return "Erro: Delimitador de fim não encontrado."

@@ -19,13 +19,10 @@ def allowed_file(filename):
 def home():
     return render_template('home.html')
 
+
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
-
-@app.route('/revelar')
-def reveal():
-    return render_template('reveal.html')
 
 @app.route('/processar/criptografar', methods=['POST'])
 def processCript():
@@ -61,3 +58,35 @@ def processCript():
 @app.route('/download/<filename>')
 def download_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+
+
+@app.route('/revelar', methods=['GET', 'POST'])
+def reveal():
+    return render_template('reveal.html')
+
+@app.route('/processar/descriptografar', methods=['POST'])
+def processDecript():
+    if request.method == 'POST':
+        if 'imagem' not in request.files:
+            flash("Nenhum arquivo enviado", 400)
+            return redirect('/revelar')
+        
+        file = request.files['imagem']
+        if file.filename == '':
+            flash("Nenhum arquivo selecionado", 400)
+            return redirect('/revelar')
+        
+        try:
+            file.stream.seek(0)
+            mensagem = Esteganograma.extract_text_from_image(file)
+
+            if "Erro" in mensagem:
+                return render_template('reveal.html', error=mensagem)
+            
+            return render_template('reveal.html', mensagem=mensagem)
+        except Exception as e:
+            flash(f"Erro ao processar imagem: {str(e)}", 500)
+            return redirect('/revelar')
+    else:
+        flash("Método não permitido", 405)
+        return redirect('/revelar')
