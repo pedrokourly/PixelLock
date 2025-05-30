@@ -5,12 +5,8 @@ from pixellock import app
 from flask import flash, redirect, render_template, request, send_from_directory, send_file
 from esteganogram import Esteganograma
 
-UPLOAD_FOLDER = 'static/processed'
 ALLOWED_EXTENSIONS = {'png'}
 Esteganograma = Esteganograma()
-
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
