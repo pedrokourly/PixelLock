@@ -49,10 +49,6 @@ def processCript():
     else:
         flash("Método não permitido", 405)
         return render_template('upload.html', error="Formato de arquivo não permitido. Use PNG.")
-    
-@app.route('/download/<filename>')
-def download_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 
 
 @app.route('/revelar', methods=['GET', 'POST'])
