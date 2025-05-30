@@ -29,14 +29,6 @@
         <button type="submit" class="btn btn-primary submit">Aplicar filtros</button>
     </form>
 
-    {% if filename %}
-    <div class="alert alert-success" role="alert">
-        Imagem processada com sucesso! <a href="{{ url_for('download_file', filename=filename) }}"
-            class="alert-link">Clique
-            aqui para baixar</a>.
-    </div>
-    {% endif %}
-
     {% if error %}
     <div class="alert alert-danger" role="alert">
         Ocorreu um erro: {{ error }}
