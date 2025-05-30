@@ -11,6 +11,7 @@ O PixelLock é uma aplicação web que permite esconder mensagens secretas dentr
 - **Criptografia:** Oculte textos em imagens PNG de forma imperceptível.
 - **Descriptografia:** Extraia mensagens secretas de imagens previamente criptografadas.
 - **Interface Responsiva:** Compatível com dispositivos móveis e desktops.
+- **Privacidade:** Suas imagens não são salvas no servidor.
 
 ## Como Usar
 1. **Acesse o site:** [https://pedrokourly.pythonanywhere.com/](https://pedrokourly.pythonanywhere.com/)
