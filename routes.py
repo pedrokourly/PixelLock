@@ -1,7 +1,8 @@
 import os
+from io import BytesIO
 
 from pixellock import app
-from flask import flash, redirect, render_template, request, send_from_directory
+from flask import flash, redirect, render_template, request, send_from_directory, send_file
 from esteganogram import Esteganograma
 
 UPLOAD_FOLDER = 'static/processed'
@@ -27,30 +28,28 @@ def upload():
 @app.route('/processar/criptografar', methods=['POST'])
 def processCript():
     if request.method == 'POST':
-        
+
         if 'imagem' not in request.files:
             flash("Nenhum arquivo enviado", 400)
             return redirect('/upload')
-        
         file = request.files['imagem']
         if file.filename == '':
             flash("Nenhum arquivo selecionado", 400)
             return redirect('/upload')
         
         if file and allowed_file(file.filename):
-            base_filename = os.path.splitext(file.filename)[0]
-            filename = base_filename + '_encrypted.png'
-
-        
             file.stream.seek(0)
             encryptedFile = Esteganograma.hide_text_in_image(file, request.form['mensagem'])
-
-            encryptedFile.save(os.path.join(UPLOAD_FOLDER, filename))
-            return render_template('upload.html', filename=filename)
+            img_io = BytesIO()
+            encryptedFile.save(img_io, format='PNG')
+            img_io.seek(0)
+            base_filename = os.path.splitext(file.filename)[0]
+            filename = base_filename + '_encrypted.png'
+            return send_file(img_io, mimetype='image/png', as_attachment=True, download_name=filename)
+        
         else:
             flash("Formato de arquivo não permitido. Use PNG.", 400)
             return render_template('upload.html', error="Formato de arquivo não permitido. Use PNG.")
-        
     else:
         flash("Método não permitido", 405)
         return render_template('upload.html', error="Formato de arquivo não permitido. Use PNG.")
