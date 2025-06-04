@@ -10,7 +10,6 @@ LABEL repository="https://github.com/pedrokourly/pixellock"
 WORKDIR /pixellock
 
 COPY . /pixellock
-COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 

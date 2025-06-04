@@ -6,6 +6,4 @@ services:
       dockerfile: dockerfile
     ports:
       - "5000:5000"
-    volumes:
-      - ./static/processed:/pixellock/static/processed
     restart: unless-stopped
